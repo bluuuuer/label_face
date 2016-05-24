@@ -48,9 +48,13 @@ void on_mouse(int event, int x, int y, int flags, void *param)
 {
   Mat &im = *(Mat *) param;
   if(event == CV_EVENT_LBUTTONDOWN) {
+    if (on_mouse_idx >= N_LANDMARK) {
+      std::cerr << "JESUS, You have clicked too many times!" << std::endl;
+      return;
+    }
     g_xs[on_mouse_idx] = x;
     g_ys[on_mouse_idx] = y;
-    on_mouse_idx = (on_mouse_idx + 1) % N_LANDMARK;
+    on_mouse_idx++;
    
     circle(im, Point(x, y), 2, Scalar(0, 0, 255), 2);
     imshow(WINNAME, im);
