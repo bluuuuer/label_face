@@ -34,7 +34,7 @@ vector<string> get_files(const string &dir) {
   while ((dirp = readdir(dp))) {
     if (dirp->d_name == string(".") || dirp->d_name == string(".."))
       continue;
-    string fname = dir + dirp->d_name;
+    string fname = dir + "/" + dirp->d_name;
     filenames.push_back(fname);
   }
   closedir(dp);
