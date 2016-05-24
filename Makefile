@@ -1,7 +1,7 @@
-all: label_face.cpp restore
+label_face: label_face.cpp restore
 	g++ `pkg-config --cflags opencv` -o label_face label_face.cpp `pkg-config --libs opencv`
 
-restore:
+restore: restore.cpp
 	g++ `pkg-config --cflags opencv` -o restore restore.cpp `pkg-config --libs opencv`
 
 run:
