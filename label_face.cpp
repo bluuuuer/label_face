@@ -85,7 +85,7 @@ redraw:
     int kb = waitKey(0);
     switch (kb % 256) {
     case 'f':
-      printf("%s", filepaths[i].c_str());
+      printf("%8d %s", off, filepaths[i].c_str());
       for (int i = 0; i < N_LANDMARK; ++i) {
         printf("%4d %4d", g_xs[i], g_ys[i]);
       }
