@@ -17,6 +17,7 @@ using namespace std;
 using namespace cv;
 
 const char *WINNAME = "WINANME";
+const double RESIZE_ALPHA = 2;
 
 int g_xs[5], g_ys[5];
 const int N_LANDMARK = (sizeof(g_xs) / sizeof(*g_xs));
@@ -51,7 +52,7 @@ void on_mouse(int event, int x, int y, int flags, void *param)
     g_ys[on_mouse_idx] = y;
     on_mouse_idx = (on_mouse_idx + 1) % N_LANDMARK;
    
-    circle(im, Point(x, y), 5, Scalar(0, 255, 0), 2);
+    circle(im, Point(x, y), 2, Scalar(0, 0, 255), 2);
     imshow(WINNAME, im);
   }
 }
@@ -78,6 +79,8 @@ int main(int argc, char *argv[])
     Mat im;
 redraw:
     im = imread(filepaths[i], CV_LOAD_IMAGE_COLOR);
+    resize(im, im, Size(), RESIZE_ALPHA, RESIZE_ALPHA);
+
     on_mouse_idx = 0;
     setMouseCallback(WINNAME, on_mouse, &im);
     imshow(WINNAME, im);
@@ -87,7 +90,7 @@ redraw:
     case 1048678: // 'f'
       printf("%-5d %-20s", i, filepaths[i].c_str());
       for (int i = 0; i < N_LANDMARK; ++i) {
-        printf("%5d %5d", g_xs[i], g_ys[i]);
+        printf("%5d %5d", (int) (g_xs[i] / RESIZE_ALPHA), (int) (g_ys[i] / RESIZE_ALPHA));
       }
       puts("");
       break;
