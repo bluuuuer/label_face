@@ -79,11 +79,22 @@ int main(int argc, char *argv[])
     Mat im;
 redraw:
     im = imread(filepaths[i], CV_LOAD_IMAGE_COLOR);
+    if (!im.data) {
+      cerr << "Warning: can't open" << filepaths[i] << ", trash-put it!" << endl;
+      system((string("trash-put ") + filepaths[i]).c_str());
+      continue;
+    }
     resize(im, im, Size(), RESIZE_ALPHA, RESIZE_ALPHA);
 
     on_mouse_idx = 0;
     setMouseCallback(WINNAME, on_mouse, &im);
-    imshow(WINNAME, im);
+    try {
+      imshow(WINNAME, im);
+    }
+    catch (cv::Exception ex) {
+      cerr << "Warning: " << filepaths[i] << " can't be displaied" << endl;
+      continue;
+    }
 
     int kb = waitKey(0);
     switch (kb) {
