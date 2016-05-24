@@ -83,14 +83,16 @@ redraw:
     imshow(WINNAME, im);
 
     int kb = waitKey(0);
-    switch (kb % 256) {
-    case 'f':
-      printf("%8d %s", off, filepaths[i].c_str());
+    switch (kb) {
+    case 1048678: // 'f'
+      printf("%-8d %s", off, filepaths[i].c_str());
       for (int i = 0; i < N_LANDMARK; ++i) {
-        printf("%4d %4d", g_xs[i], g_ys[i]);
+        printf("%5d %5d", g_xs[i], g_ys[i]);
       }
       puts("");
       break;
+    case 1048689: // 'q'
+      return EXIT_SUCCESS;
     default:
       goto redraw;
     }
