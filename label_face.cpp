@@ -101,15 +101,15 @@ redraw:
     }
 
     int kb = waitKey(0);
-    switch (kb) {
-    case 1048678: // 'f'
+    switch (kb % 256) {
+    case 'f':
       printf("%-5d %-20s", i, filepaths[i].c_str());
       for (int i = 0; i < N_LANDMARK; ++i) {
         printf("%5d %5d", (int) (g_xs[i] / RESIZE_ALPHA), (int) (g_ys[i] / RESIZE_ALPHA));
       }
       puts("");
       break;
-    case 1048689: // 'q'
+    case 'q':
       return EXIT_SUCCESS;
     default:
       goto redraw;
